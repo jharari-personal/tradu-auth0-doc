@@ -3,7 +3,7 @@ name: Build and Deploy LaTeX to GitHub Pages
 on:
   push:
     branches:
-      - main  # Run when main.tex changes
+      - main  # Run when main.tex changes.
 
 permissions:
   contents: write
