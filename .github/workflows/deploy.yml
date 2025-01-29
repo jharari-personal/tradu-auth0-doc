@@ -3,16 +3,15 @@ name: Build and Deploy LaTeX to GitHub Pages
 on:
   push:
     branches:
-      - main  # Adjust if your main branch is named differently
+      - main  # Adjust if your default branch is different
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write  # Required for deployment
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -24,21 +23,11 @@ jobs:
 
       - name: Compile LaTeX to HTML
         run: |
-          make4ht -u -d html document.tex
+          pdflatex -interaction=nonstopmode document.tex
+          make4ht -u -d html document.tex  # Generates HTML output in ./html
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
-        with:
-          path: ./html  # Adjust if your output directory is different
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    steps:
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # Uses built-in token
+          publish_dir: ./html  # Adjust if output directory is different
