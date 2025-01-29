@@ -30,7 +30,8 @@ jobs:
           # Ensure tlmgr and make4ht are available
           which tlmgr || echo "tlmgr not found"
           which make4ht || echo "make4ht not found"
-          tlmgr install tex4ht make4ht texlive-scripts
+          # Use sudo to install additional packages
+          sudo /usr/local/texlive/2024/bin/x86_64-linux/tlmgr install tex4ht make4ht texlive-scripts
 
       - name: Verify `make4ht` installation
         run: |
