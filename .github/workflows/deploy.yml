@@ -22,7 +22,8 @@ jobs:
           sudo apt-get install -y wget perl xz-utils
           wget -q http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
           tar -xzf install-tl-unx.tar.gz
-          cd install-tl-*
+          INSTALL_DIR=$(tar -tf install-tl-unx.tar.gz | head -n 1 | cut -f 1 -d '/')
+          cd "$INSTALL_DIR"
           sudo perl install-tl --no-interaction --scheme=basic
           export PATH="/usr/local/texlive/bin/x86_64-linux:$PATH"
           tlmgr install tex4ht make4ht texlive-scripts
