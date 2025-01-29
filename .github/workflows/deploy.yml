@@ -3,7 +3,7 @@ name: Build and Deploy LaTeX to GitHub Pages
 on:
   push:
     branches:
-      - main  # Run when main.tex changes.
+      - main  # Run when main.tex changes
 
 permissions:
   contents: write
@@ -16,10 +16,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up TeXLive
-        uses: teatimeguest/setup-texlive-action@v2
-        with:
-          packages: tex4ht
+      - name: Install TeXLive and TeX4ht
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive texlive-xetex texlive-latex-extra texlive-fonts-recommended texlive-plain-generic tex4ht
 
       - name: Compile LaTeX to HTML
         run: |
