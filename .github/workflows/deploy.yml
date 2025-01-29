@@ -25,10 +25,12 @@ jobs:
           INSTALL_DIR=$(tar -tf install-tl-unx.tar.gz | head -n 1 | cut -f 1 -d '/')
           cd "$INSTALL_DIR"
           sudo perl install-tl --no-interaction --scheme=basic
-          export PATH="/usr/local/texlive/bin/x86_64-linux:$PATH"
-          tlmgr install tex4ht make4ht texlive-scripts
-          echo "PATH=/usr/local/texlive/bin/x86_64-linux:$PATH" >> $GITHUB_ENV
+          # Explicitly set PATH to include TeXLive binaries
+          export PATH="/usr/local/texlive/2024/bin/x86_64-linux:$PATH"
+          # Ensure tlmgr and make4ht are available
+          which tlmgr || echo "tlmgr not found"
           which make4ht || echo "make4ht not found"
+          tlmgr install tex4ht make4ht texlive-scripts
 
       - name: Verify `make4ht` installation
         run: |
