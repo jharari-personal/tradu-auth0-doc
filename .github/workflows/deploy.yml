@@ -3,10 +3,10 @@ name: Build and Deploy LaTeX to GitHub Pages
 on:
   push:
     branches:
-      - main  # Adjust if your default branch is different
+      - main  # Run when main.tex changes
 
 permissions:
-  contents: write  # Required for deployment
+  contents: write
 
 jobs:
   build:
@@ -23,11 +23,11 @@ jobs:
 
       - name: Compile LaTeX to HTML
         run: |
-          pdflatex -interaction=nonstopmode document.tex
-          make4ht -u -d html document.tex  # Generates HTML output in ./html
+          make4ht -u -d . main.tex  # Generate HTML in root
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}  # Uses built-in token
-          publish_dir: ./html  # Adjust if output directory is different
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .  # Ensure files are at the root
+          force_orphan: true  # Ensures a clean deploy
