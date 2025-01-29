@@ -16,11 +16,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install TeXLive and TeX4ht
+      - name: Install TeXLive (Full) with TeX4ht
         run: |
           sudo apt-get update
-          sudo apt-get install -y texlive texlive-xetex texlive-latex-extra texlive-fonts-recommended texlive-plain-generic tex4ht
-          echo "TeXLive installed"
+          sudo apt-get install -y wget perl xz-utils
+          wget -q http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+          tar -xzf install-tl-unx.tar.gz
+          cd install-tl-*
+          sudo perl install-tl --no-interaction --scheme=basic
+          export PATH="/usr/local/texlive/bin/x86_64-linux:$PATH"
+          tlmgr install tex4ht make4ht texlive-scripts
+          echo "PATH=/usr/local/texlive/bin/x86_64-linux:$PATH" >> $GITHUB_ENV
+          which make4ht || echo "make4ht not found"
 
       - name: Verify `make4ht` installation
         run: |
@@ -29,7 +36,6 @@ jobs:
 
       - name: Compile LaTeX to HTML
         run: |
-          export PATH=$PATH:/usr/bin:/usr/local/texlive/bin/x86_64-linux/
           make4ht -u -d . main.tex  # Generate HTML in root
 
       - name: Deploy to GitHub Pages
