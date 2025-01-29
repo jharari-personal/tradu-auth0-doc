@@ -20,9 +20,16 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y texlive texlive-xetex texlive-latex-extra texlive-fonts-recommended texlive-plain-generic tex4ht
+          echo "TeXLive installed"
+
+      - name: Verify `make4ht` installation
+        run: |
+          which make4ht || echo "make4ht not found"
+          make4ht --version || echo "make4ht version check failed"
 
       - name: Compile LaTeX to HTML
         run: |
+          export PATH=$PATH:/usr/bin:/usr/local/texlive/bin/x86_64-linux/
           make4ht -u -d . main.tex  # Generate HTML in root
 
       - name: Deploy to GitHub Pages
