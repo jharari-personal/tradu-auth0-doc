@@ -1,0 +1,99 @@
+%%Identification
+%%The package identifies itself and the LaTeX version needed
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{fxcmFormat}[2014/08/21 FXCM Formatting File]
+
+%%Requeiried packages and preliminary definitions, needed by the options
+%PACKAGES
+\usepackage{enumerate} 
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{lastpage} 
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{comment}
+\usepackage[normalem]{ulem}
+\usepackage[breakable]{tcolorbox}
+\usepackage{textcomp}
+\usepackage{enumitem,amssymb}
+\usepackage{amsfonts}
+\usepackage{wrapfig}
+\usepackage{subcaption}
+\usepackage{fancyvrb}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\tcbuselibrary{listingsutf8}
+
+%CUSTOM COMMANDS
+\newcommand{\aainfo}{\textcolor{red}{Awaiting information about xIgnite/DXFeeds}}
+\newcommand{\todiscuss}{\textcolor{red}{to discuss}}
+\newcommand{\arrow}{$\,\to\,$}
+\newcommand{\notesbox}{\begin{tcolorbox}[colback=yellow!5!white,colframe=yellow!75!black,title=Notes]}
+\newcommand{\warningbox}{\begin{tcolorbox}[colback=red!5!white,colframe=red!75!black,title=Warning]}
+
+\newcommand{\closebox}{\end{tcolorbox}}
+\newcommand{\examplebox}{\begin{tcolorbox}[colback=yellow!5!white,colframe=yellow!75!black,title=User Story,breakable]}
+\newcommand{\summarybox}{\begin{tcolorbox}[breakable,colback=yellow!5!white,colframe=yellow!75!black,title=Summary]}
+
+
+%PROJECT FORMATTING AND SPACING
+\usepackage{fontspec}
+\setmainfont{OpenSans-Regular.ttf}[
+BoldFont = OpenSans-Bold.ttf ,
+ItalicFont = OpenSans-Italic.ttf ,
+BoldItalicFont = OpenSans-BoldItalic.ttf ]
+
+\parindent 0pt
+\parskip 5pt
+	\addtolength{\oddsidemargin}{-.875in}
+	\addtolength{\evensidemargin}{-.875in}
+	\addtolength{\textwidth}{1.75in}
+	\addtolength{\topmargin}{-.875in}
+	\addtolength{\textheight}{1.75in}
+\renewcommand{\baselinestretch}{1.1}
+
+%USER DEFINED COLORS
+
+\definecolor{maincolor}{RGB}{40, 53, 69}
+\definecolor{secondarycolor}{RGB}{140, 139, 170}
+\definecolor{bluecolor}{RGB}{12, 81, 163}
+
+%HEADER AND FOOTER LINES AND COLOR
+
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{secondarycolor}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\footrulewidth}{0.5pt}
+\renewcommand{\footrule}{\hbox to\headwidth{\color{secondarycolor}\leaders\hrule height \footrulewidth\hfill}}
+
+%HEADER AND FOOTER
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\textcolor{secondarycolor}{\project}}
+\rhead{\textcolor{secondarycolor}{\version}}
+\lfoot{\textcolor{secondarycolor}{For Internal and External Use}}
+\rfoot{\textcolor{secondarycolor}{Page \thepage\ }}
+
+%ToC SETUP
+\hypersetup{
+    colorlinks=true, %set true for colored links
+    linktoc=all,     %set to all for both sections and subsections linked
+    linkcolor=bluecolor,  
+    urlcolor=bluecolor, %color
+}
+%\setcounter{tocdepth}{2}
+\urlstyle{same}
+
+
+%SETS THE COLOR OF THE ENTIRE PAGE TO MAINCOLOR
+\color{maincolor}
+
+% \setenumerate[1]{label=\thesection.\arabic*, leftmargin=*}
+% \setenumerate[2]{label*=.\arabic*}
+% \setenumerate[3]{label*=.\arabic*}
+% \setenumerate[4]{label*=.\arabic*}
+
